@@ -1,0 +1,13 @@
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
+metadata:
+  name: zone-ingress
+  namespace: zoneprinter
+  annotations:
+    networking.gke.io/static-ip: 34.149.29.248
+spec:
+  template:
+    spec:
+      backend:
+        serviceName: zone-mcs
+        servicePort: 8080
