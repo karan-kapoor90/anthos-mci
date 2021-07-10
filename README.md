@@ -89,9 +89,9 @@ Reference: https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-
         --service-account-key-file=service-account-key-path
     ```
 
-Once done, we have to select one of the clusters as the config cluster. This will house the MCI and MCS resources. Only 1 cluster in a fleet can be an active config cluster
+    Once done, we have to select one of the clusters as the config cluster. This will house the MCI and MCS resources. Only 1 cluster in a fleet can be an active config cluster
 
-> Note: For me the whole path passed as the config-membership param didn't work, so I passed cluster as the value to the config-membership flag.
+
 
     ```bash
     gcloud alpha container hub ingress enable \
@@ -100,6 +100,7 @@ Once done, we have to select one of the clusters as the config cluster. This wil
     gcloud alpha container hub ingress enable \
     --config-membership=cluster1  # The actual command I used.
     ```
+    > Note: For me the whole path passed as the config-membership param didn't work, so I passed cluster as the value to the config-membership flag.
 
 - Confirm cluster registration as the config cluster
 
