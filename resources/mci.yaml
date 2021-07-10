@@ -4,7 +4,7 @@ metadata:
   name: zone-ingress
   namespace: zoneprinter
   annotations:
-    networking.gke.io/static-ip: 34.149.29.248
+    networking.gke.io/static-ip: 34.149.29.248 # Your reserved IP address goes here 
 spec:
   template:
     spec:
