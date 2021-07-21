@@ -96,16 +96,16 @@ References: https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster
 
 # Intra-cluster Load Balancing using ASM - for traffic inside the cluster
 
-    The following steps will demonstrate multi-cluster load balancing within the 2 clusters using the service mesh - Note: This is not the same as Gloabl Load blancing where traffic is coming from a client outside the cluster. This is the scenario wehre services inside the cluster are consuming other services, also deployed on the cluster - and ASM is able to loadbalance such requests b/w the pods on both the clusters.
+The following steps will demonstrate multi-cluster load balancing within the 2 clusters using the service mesh - Note: This is not the same as Gloabl Load blancing where traffic is coming from a client outside the cluster. This is the scenario wehre services inside the cluster are consuming other services, also deployed on the cluster - and ASM is able to loadbalance such requests b/w the pods on both the clusters.
 
-    In order to do the following, follow the link here : https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster#verify_your_deployment 
+In order to do the following, follow the link here : https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster#verify_your_deployment 
 
-    - enable sidecar injection
-    - Deploy svc
-    - deploy v1 and v2 on cluster1 and 2 respectively
-    - deploy sleep containers
-    - verify load balancing b/w pods on the 2 clusters using the sleep containers
-    - Delete the sample namespace on both the clusters
+- enable sidecar injection
+- Deploy svc
+- deploy v1 and v2 on cluster1 and 2 respectively
+- deploy sleep containers
+- verify load balancing b/w pods on the 2 clusters using the sleep containers
+- Delete the sample namespace on both the clusters
 
 
 # Multi-cluster ingress/ Global Loadbalancing setup
