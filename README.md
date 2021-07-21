@@ -92,7 +92,14 @@ References: https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster
 - Configure endpoint discovery between clusters - https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster#verify_your_deployment
     - Switch context into first cluster and apply the output of `istioctl x create-remote-secret` into the second cluster 
     - Switch context into second cluster and apply the output of `istioctl x create-remote-secret` into the first cluster - `istioctl x create-remote-secret | kubectl apply -f - --context <context-name-for-first-cluster>`
-- Verify istio configuration
+
+
+# Intra-cluster Load Balancing using ASM - for traffic inside the cluster
+
+    The following steps will demonstrate multi-cluster load balancing within the 2 clusters using the service mesh - Note: This is not the same as Gloabl Load blancing where traffic is coming from a client outside the cluster. This is the scenario wehre services inside the cluster are consuming other services, also deployed on the cluster - and ASM is able to loadbalance such requests b/w the pods on both the clusters.
+
+    In order to do the following, follow the link here : https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster#verify_your_deployment 
+
     - enable sidecar injection
     - Deploy svc
     - deploy v1 and v2 on cluster1 and 2 respectively
@@ -101,7 +108,7 @@ References: https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster
     - Delete the sample namespace on both the clusters
 
 
-# Multi-cluster ingress setup
+# Multi-cluster ingress/ Global Loadbalancing setup
 
 
 Reference: https://docs.google.com/document/d/1VDlGHlYq8uw4JTsq-iMjrLmptQ6gMgtcNHwWFlYbrjg/edit?resourcekey=0-wdodkiXzWXbCrSjnwzLS7A
