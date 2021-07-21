@@ -26,7 +26,68 @@ References: https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster
     gcloud container clusters create cluster1 --region asia-southeast1 --enable-ip-alias
     gcloud container clusters create cluster2 --region australia-southeast1 --enable-ip-alias
     ```
-- Install ASM on both the clusters 
+- Install ASM on both the clusters
+
+    First the Anthos API's need to be enabled. Do so by going to the following link after logging in: https://console.cloud.google.com/flows/enableapi?apiid=anthos.googleapis.com&_ga=2.55597547.199774792.1626845476-361436478.1626845476
+
+    Then add the clusters you created earlier to. your Anthos cluster fleet from the UI.
+
+    Then install ASM into the 2 clusters usign the following steps.
+
+    Enable Cloud API's
+    ```bash
+    gcloud services enable \
+    --project=PROJECT_ID \
+    container.googleapis.com \
+    compute.googleapis.com \
+    monitoring.googleapis.com \
+    logging.googleapis.com \
+    cloudtrace.googleapis.com \
+    meshca.googleapis.com \
+    meshtelemetry.googleapis.com \
+    meshconfig.googleapis.com \
+    iamcredentials.googleapis.com \
+    gkeconnect.googleapis.com \
+    gkehub.googleapis.com \
+    cloudresourcemanager.googleapis.com \
+    stackdriver.googleapis.com
+    ```
+    
+    Download the ASM components and get ready to install them.
+
+    ```bash
+    gcloud components update
+    curl https://storage.googleapis.com/csm-artifacts/asm/install_asm_1.10 > install_asm
+    curl https://storage.googleapis.com/csm-artifacts/asm/install_asm_1.10.sha256 > install_asm.sha256
+    sha256sum -c --ignore-missing install_asm.sha256
+    chmod +x install_asm
+    ```
+    Validate the ASM installation before actually installing
+
+    ```bash
+    ./install_asm \
+  --project_id PROJECT_ID \
+  --cluster_name CLUSTER_NAME \
+  --cluster_location CLUSTER_LOCATION \
+  --mode install \
+  --output_dir DIR_PATH \
+  --only_validate
+    ```
+
+    Install the default ASM features
+    ```bash
+    ./install_asm \
+  --project_id PROJECT_ID \
+  --cluster_name CLUSTER_NAME \
+  --cluster_location CLUSTER_LOCATION \
+  --mode install \
+  --ca mesh_ca \
+  --output_dir DIR_PATH \
+  --enable_registration \
+  --enable_all
+  --enable-registration
+    ```
+
 - Configure endpoint discovery between clusters - https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster#verify_your_deployment
     - Switch context into first cluster and apply the output of `istioctl x create-remote-secret` into the second cluster 
     - Switch context into second cluster and apply the output of `istioctl x create-remote-secret` into the first cluster - `istioctl x create-remote-secret | kubectl apply -f - --context <context-name-for-first-cluster>`
