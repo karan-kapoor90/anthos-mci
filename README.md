@@ -23,6 +23,7 @@ References: https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster
 
 - Create 2 clusters in 2 different regions. Do pass the `--enable-alias-ip`
     ```bash
+    gcloud config set project PROJECT_NAME
     gcloud container clusters create cluster1 --region asia-southeast1 --enable-ip-alias
     gcloud container clusters create cluster2 --region australia-southeast1 --enable-ip-alias
     ```
