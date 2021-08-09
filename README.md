@@ -322,13 +322,12 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
     gcloud endpoints services list --format="value(serviceName)"
     ```
 
-    > If the website is not av
+    > If the website is not available, run a `k describe mci` and check the events and any possible errors in the MCI object
+
+
 12. Validating - Test the services from different regions using your local broswer as well as https://geotargetly.com/geo-browse 
 
 # Objective 2: Multi-cluster mesh setup using ASM
-
-References: https://cloud.google.com/service-mesh/docs/scripted-install/asm-onboarding then https://cloud.google.com/service-mesh/docs/scripted-install/gke-project-cluster-setup then https://cloud.google.com/service-mesh/docs/scripted-install/gke-install 
-References: https://cloud.google.com/service-mesh/docs/gke-install-multi-cluster 
 
 
 ## Downloading the binaries
@@ -525,3 +524,4 @@ The way we can test this is by creating a pod called `sleep` - which does exactl
     ```
 
 
+And voila! you've just tested Multi-cluster Ingress and multi-cluster Service Mesh on Google Cloud! That wasn't so tough now, was it? 
