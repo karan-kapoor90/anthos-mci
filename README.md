@@ -215,21 +215,21 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-    name: zone-ingress
-    namespace: zoneprinter
+      name: zone-ingress
+      namespace: zoneprinter
     labels:
-        app: zoneprinter
+      app: zoneprinter
     spec:
     selector:
-        matchLabels:
+      matchLabels:
         app: zoneprinter
     template:
         metadata:
-        labels:
+          labels:
             app: zoneprinter
         spec:
-        containers:
-        - name: frontend
+          containers:
+          - name: frontend
             image: gcr.io/google-samples/zone-printer:0.2
             ports:
             - containerPort: 8080
