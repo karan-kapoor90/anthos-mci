@@ -84,8 +84,8 @@ Scenario's 1 and 2 can be accomplished using a Multi-cluster Ingress setup on GK
     
     ```bash
     gcloud config set project ${PROJECT_ID}
-    gcloud container clusters create ${C1} --region ${R1} --enable-ip-alias --workload-pool=${WORKLOAD_POOL} --mesh-id=${MESH_ID}
-    gcloud container clusters create ${C2} --region ${R2} --enable-ip-alias --workload-pool=${WORKLOAD_POOL} --mesh-id=${MESH_ID}
+    gcloud container clusters create ${C1} --region ${R1} --enable-ip-alias --workload-pool=${WORKLOAD_POOL} --label=mesh_id=${MESH_ID}
+    gcloud container clusters create ${C2} --region ${R2} --enable-ip-alias --workload-pool=${WORKLOAD_POOL} --label=mesh_id=${MESH_ID}
     ```
 
     > Note: If you're using pre-existing, pre-created clusters, you need to ensure that IP Aliases are enabled. On the GCP console, navigate to your cluster and check if VPC-native traffic Routing is enabled on the cluster. 
