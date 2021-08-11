@@ -175,13 +175,13 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
     # Adding the first cluster to the hub
     gcloud container hub memberships register ${C1} \
         --project=${PROJECT_ID} \
-        --gke-uri=${R1}/${C1} \
+        --gke-uri=https://containers.googleapis.com/v1/projects/${PROJECT_ID}/locations/${R1}/clusters/${C1} \
         --enable-workload-identity
 
     # Adding the second cluster to the hub
     gcloud container hub memberships register ${C2} \
         --project=${PROJECT_ID} \
-        --gke-uri=${R2}/${C2} \
+        --gke-uri=https://containers.googleapis.com/v1/projects/${PROJECT_ID}/locations/${R1}/clusters/${C1} \
         --enable-workload-identity
 
     # Confirm that both the clusters have been added to the hub
