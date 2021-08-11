@@ -50,7 +50,7 @@ Scenario's 1 and 2 can be accomplished using a Multi-cluster Ingress setup on GK
 
     ```bash
     gcloud services enable \
-    --project=PROJECT_ID \
+    --project=${PROJECT_ID} \
     anthos.googleapis.com \
     multiclusteringress.googleapis.com \
     container.googleapis.com \
