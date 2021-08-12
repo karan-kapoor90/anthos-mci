@@ -514,7 +514,7 @@ The way we can test this is by creating a pod called `sleep` - which does exactl
     kubectl exec -it --context="${C1}" -n sample -c sleep \
     "$(kubectl get pod --context="${C1}" -n sample -l \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
-    -- for i in `seq 1 20`; do curl -sS helloworld.sample:5000/hello; done
+    -- curl -sS helloworld.sample:5000/hello
 
     # Curl from sleep container in Cluster2
     kubectl exec --context="${C2}" -n sample -c sleep \
