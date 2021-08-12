@@ -476,12 +476,12 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
 
     ```bash
     # deploying the service and the v1 deployment to the first cluster
-    k create --context=${C1} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
-    k create --context=${C1} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v1 -n sample
+    k create --context=${C1} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
+    k create --context=${C1} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v1 -n sample
 
-    # deploying the service and the v1 deployment to the first cluster
-    k create --context=${C2} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
-    k create --context=${C2} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v2 -n sample
+    # deploying the service and the v2 deployment to the second cluster
+    k create --context=${C2} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
+    k create --context=${C2} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v2 -n sample
 
     ```
 
