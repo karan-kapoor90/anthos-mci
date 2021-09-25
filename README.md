@@ -476,12 +476,12 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
 
     ```bash
     # deploying the service and the v1 deployment to the first cluster
-    k create --context=${C1} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
-    k create --context=${C1} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v1 -n sample
+    k create --context=${C1} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
+    k create --context=${C1} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v1 -n sample
 
-    # deploying the service and the v1 deployment to the first cluster
-    k create --context=${C2} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
-    k create --context=${C2} -f ${PROJECT_DIR}/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v2 -n sample
+    # deploying the service and the v2 deployment to the second cluster
+    k create --context=${C2} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l service=helloworld -n sample
+    k create --context=${C2} -f ${PROJECT_DIR}/asm-setup/istio-1.10.2-asm.3/samples/helloworld/helloworld.yaml -l version=v2 -n sample
 
     ```
 
@@ -514,7 +514,7 @@ The way we can test this is by creating a pod called `sleep` - which does exactl
     kubectl exec -it --context="${C1}" -n sample -c sleep \
     "$(kubectl get pod --context="${C1}" -n sample -l \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
-    -- for i in `seq 1 20`; do curl -sS helloworld.sample:5000/hello; done
+    -- curl -sS helloworld.sample:5000/hello
 
     # Curl from sleep container in Cluster2
     kubectl exec --context="${C2}" -n sample -c sleep \
