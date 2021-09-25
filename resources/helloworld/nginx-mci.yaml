@@ -1,0 +1,28 @@
+apiVersion: networking.gke.io/v1beta1
+kind: MultiClusterIngress
+metadata:
+  name: nginx-mci
+  namespace: sample
+  annotations:
+    networking.gke.io/static-ip: 34.149.189.144
+spec:
+  template:
+    spec:
+      # backend:   # LB doesn't get created if you don't define a default backend set, even though it only comes up as a warning in the describe
+      #   serviceName: nginx-mcs
+      #   servicePort: 80
+      rules:
+      - host: lol.nginx.endpoints.misc-project-317604.cloud.goog
+        http:
+          paths:
+          - backend:
+              serviceName: nginx-mcs
+              servicePort: 80
+      # rules:
+      #   - http:
+      #       paths:
+      #       - host: 'lol.nginx.endpoints.misc-project-317604.cloud.goog'
+      #         backend:
+      #           serviceName: nginx-mcs
+      #           servicePort: 80
+          # host: '*'

@@ -1,0 +1,21 @@
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
+metadata:
+  name: zone-ingress
+  namespace: zoneprinter
+  annotations:
+    networking.gke.io/static-ip: 34.120.232.128 # Your reserved IP address goes here 
+spec:
+  template:
+    spec:
+      backend:
+        serviceName: zone-mcs
+        servicePort: 8080
+      rules:
+        - host: 'frontend.endpoints.misc-project-317604.cloud.goog'
+          http:
+            paths:
+            - path: "/zoneprinter"
+              backend:
+                serviceName: zone-mcs
+                servicePort: 8080

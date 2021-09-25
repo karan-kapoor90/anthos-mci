@@ -1,0 +1,17 @@
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: nginx-mcs
+  namespace: sample
+  # annotations:
+    # beta.cloud.google.com/backend-config: '{"ports":{"default":"gke-ingress-config"}}'
+spec:
+  template:
+    spec:
+      selector:
+        app: nginx
+      ports:
+      - name: web
+        protocol: TCP
+        port: 80
+        targetPort: 80

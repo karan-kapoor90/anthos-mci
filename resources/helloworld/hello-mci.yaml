@@ -1,0 +1,13 @@
+apiVersion: networking.gke.io/v1beta1
+kind: MultiClusterIngress
+metadata:
+  name: hello-mci
+  namespace: sample
+  # annotations:
+    # networking.gke.io/static-ip: 34.120.232.128
+spec:
+  template:
+    spec:
+      backend:
+       serviceName: hello-mcs
+       servicePort: 5000
