@@ -217,22 +217,22 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
     metadata:
       name: zone-ingress
       namespace: zoneprinter
-    labels:
-      app: zoneprinter
+        labels:
+          app: zoneprinter
     spec:
-    selector:
-      matchLabels:
-        app: zoneprinter
-    template:
-        metadata:
-          labels:
-            app: zoneprinter
-        spec:
-          containers:
-          - name: frontend
-            image: gcr.io/google-samples/zone-printer:0.2
-            ports:
-            - containerPort: 8080
+      selector:
+        matchLabels:
+          app: zoneprinter
+        template:
+          metadata:
+            labels:
+              app: zoneprinter
+          spec:
+            containers:
+            - name: frontend
+              image: gcr.io/google-samples/zone-printer:0.2
+              ports:
+              - containerPort: 8080
     ```
 
     Apply them to the clusters
@@ -300,9 +300,9 @@ In order for Global Load Balancing to work, GCP can provide us with a random Sta
     spec:
     template:
         spec:
-        backend:
-            serviceName: zone-mcs
-            servicePort: 8080
+            backend:
+                serviceName: zone-mcs
+                servicePort: 8080
     EOF
 
     k apply -f mci.yaml
@@ -525,3 +525,26 @@ The way we can test this is by creating a pod called `sleep` - which does exactl
 
 
 And voila! you've just tested Multi-cluster Ingress and multi-cluster Service Mesh on Google Cloud! That wasn't so tough now, was it? 
+
+
+# Connecting MCI to ASM Ingress
+
+The istio operator, at the time of istio installation, by default creates 1 load balancer service in the istio-system namespace, per cluster. Since we want to use MCI, we want the MCI Ingress object to be the entrypoint to the services being "meshed" by ASM, and not the individual load balancers created by the ASM installation. Hence, we convert these LB type `istio-ingressgateway` services to ClusterIP.
+
+```bash
+k edit svc istio-ingressgateway -n istio-system --context="${C1}"  # Change the service Type from LoadBalancer to ClusterIP
+k edit svc istio-ingressgateway -n istio-system --context="${C2}"  # Change the service Type from LoadBalancer to ClusterIP
+```
+
+Check if th service conversion has happened properly. 
+
+```bash
+k get svc -n istio-system   # the type should be ClusterIP instead of Loadbalancer for the service istio-ingressgateway
+```
+
+Now what we want to do is to create an Istio Virtual service that:
+- uses the istio gateway we created as the entry point for our services
+- uses the hello service deployed by us earlier and loadbalanced across the cluster by ASM, as the backend for the virtual service
+
+Finally, we will connect the istio-ingressgateway service to the HTTP LB created by the MultiClusterIngress resource.
+
